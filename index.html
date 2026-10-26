@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zdrava krema</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/* Layout: ena ozka kolona (kot knjigarna v žepu), maketi knjige, vodoravni "poglej noter" trak, temne pill gumbe */
+:root {
+  --bg: #f7f6f2;          /* papir */
+  --card: #ecebe5;        /* siv karton */
+  --ink: #161513;         /* skoraj črna */
+  --muted: #6b6860;
+  --line: #dddbd3;
+  --berry: #c2456b;       /* malinovo-jagodna */
+  --pist: #9bb36a;        /* pistacija */
+  --cream: #fbf1dc;       /* vanilijeva krema */
+  --display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+.wrap {
+  max-width: 640px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+em, .it { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; margin: 0; text-wrap: balance; }
+h1 em, h2 em, h3 em { font-size: 1.12em; }
+
+/* header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 12px; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.05em; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.logo i { width: 9px; height: 9px; border-radius: 50%; background: var(--pist); display: inline-block; margin-top: 8px; }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 700; border-radius: 999px; transition: transform .15s ease, background .15s ease; }
+.pill:hover { transform: translateY(-1px); background: #2b2925; }
+.pill:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--berry); outline-offset: 3px; }
+.pill.sm { font-size: 14px; padding: 9px 16px; }
+.pill.lg { font-size: 17px; padding: 18px 28px; width: 100%; }
+.dot { opacity: .6; }
+
+/* hero */
+.hero { text-align: center; padding-block: 36px 24px; display: grid; gap: 18px; justify-items: center; }
+.eyebrow { font-size: 14px; font-weight: 700; color: var(--muted); }
+.hero h1 { font-size: clamp(38px, 9vw, 58px); }
+.sub { color: var(--muted); font-size: 15px; margin: 0; }
+.fine { color: var(--muted); font-size: 13px; margin: 0; }
+
+/* book mockups */
+.mock { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1.45; margin-block: 8px 4px; }
+.page { position: absolute; background: #fff; border-radius: 6px; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 40px -14px rgba(40,30,20,.35); overflow: hidden; }
+.cover { left: 4%; top: 8%; width: 46%; aspect-ratio: 0.71; background: var(--cream); transform: rotate(-4deg); padding: 9% 8%; text-align: left; display: flex; flex-direction: column; z-index: 2; }
+.cover .t { font-family: var(--display); font-weight: 800; font-size: clamp(20px, 5.4vw, 30px); letter-spacing: -0.05em; line-height: .9; }
+.cover .t em { display: block; font-size: 1.1em; }
+.cover .badge { position: absolute; right: 9%; top: 34%; width: 15%; aspect-ratio: 1; border-radius: 50%; background: var(--ink); color: var(--cream); font-size: clamp(7px, 1.6vw, 9px); font-weight: 800; display: grid; place-items: center; line-height: 1; text-align: center; }
+.cover svg { width: 64%; margin: auto auto 6%; display: block; }
+.cover .foot { font-size: clamp(6px, 1.4vw, 8px); color: var(--muted); font-weight: 600; }
+.spread { right: 2%; top: 2%; width: 50%; aspect-ratio: 0.71; transform: rotate(3deg); padding: 7%; z-index: 1; text-align: left; font-size: clamp(5px, 1.3vw, 7px); }
+.spread .rt { font-family: var(--display); font-weight: 800; font-size: clamp(11px, 2.9vw, 16px); letter-spacing: -0.04em; line-height: .95; }
+.spread .rt em { display: block; font-size: 1.05em; }
+.spread .img { margin: 6% 0; aspect-ratio: 1.4; border-radius: 4px; background: radial-gradient(circle at 50% 40%, #f5c4d2 0 34%, transparent 35%), radial-gradient(circle at 50% 120%, #e9e3d6 0 60%, transparent 61%), linear-gradient(160deg, #f3d9e1, #e3c3b5); }
+.spread .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border-top: 1px solid var(--line); padding-top: 4px; font-weight: 700; }
+.spread .row small { display: block; font-weight: 500; color: var(--muted); font-size: .8em; }
+.spread .lines { margin-top: 8%; display: grid; gap: 4px; }
+.spread .lines i { height: 3px; background: var(--line); border-radius: 2px; display: block; }
+
+/* checklist */
+.checks { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 12px; text-align: left; justify-self: center; }
+.checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; }
+.checks li::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.6L14 7.5' fill='none' stroke='%23161513' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
+.checks b { font-weight: 800; }
+
+section.block { padding-block: 56px 8px; }
+.block h2 { font-size: clamp(32px, 7vw, 42px); }
+.block .lead { color: var(--muted); margin: 10px 0 0; }
+
+/* look inside */
+.strip { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 20px 12px; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: none; }
+.strip::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 86%; max-width: 520px; scroll-snap-align: start; display: grid; gap: 10px; }
+.sheet { background: #fff; border-radius: 10px; box-shadow: 0 14px 34px -18px rgba(40,30,20,.35); padding: 22px; min-height: 360px; font-size: 13px; }
+.slide h3 { font-size: 17px; letter-spacing: -0.02em; }
+.slide p { margin: 0; color: var(--muted); font-size: 14px; }
+.kicker { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .14em; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+.sheet .name { font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: -0.05em; line-height: .95; margin-top: 12px; }
+.sheet .name em { display: block; font-size: 1.08em; }
+.tags { font-size: 10px; letter-spacing: .12em; font-weight: 700; text-transform: uppercase; color: var(--berry); margin-top: 8px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 10px; font-variant-numeric: tabular-nums; }
+.stats b { font-family: var(--serif); font-weight: 400; font-size: 26px; display: block; line-height: 1; }
+.stats small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.two { display: grid; grid-template-columns: 1fr 1.3fr; gap: 16px; margin-top: 16px; }
+.two > div { min-width: 0; }
+.mini-h { font-size: 10px; letter-spacing: .14em; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+table.ing { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+table.ing td { border-bottom: 1px solid var(--line); padding: 4px 0; vertical-align: top; }
+table.ing td:first-child { font-weight: 700; width: 46%; white-space: nowrap; padding-right: 6px; }
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 8px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 24px; line-height: 1.4; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1; color: var(--berry); }
+.tip { margin-top: 14px; background: var(--cream); border-radius: 8px; padding: 10px 12px; font-size: 12px; }
+.tip b { font-weight: 800; }
+.week { display: grid; gap: 8px; margin-top: 14px; font-variant-numeric: tabular-nums; }
+.week div { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 7px; }
+.week span:first-child { font-family: var(--serif); font-style: italic; font-size: 18px; }
+.week span:last-child { color: var(--muted); font-size: 12px; }
+.mods { display: grid; gap: 10px; margin-top: 14px; }
+.mods div { display: grid; grid-template-columns: 1fr auto; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.mods b { font-weight: 800; }
+.mods small { color: var(--muted); display: block; font-size: 12px; }
+.mods code { font-family: var(--display); font-weight: 800; font-size: 11px; background: var(--ink); color: var(--bg); border-radius: 999px; padding: 4px 9px; align-self: start; white-space: nowrap; }
+.dots { display: flex; gap: 6px; justify-content: center; }
+.dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--line); transition: width .2s ease, background .2s ease; }
+.dots i.on { width: 20px; background: var(--ink); }
+
+/* categories */
+.cats { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 0; }
+.cats li { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: center; padding-block: 14px; border-top: 1px solid var(--line); }
+.cats li:last-child { border-bottom: 1px solid var(--line); }
+.cats .sw { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; }
+.cats .sw svg { width: 30px; height: 30px; }
+.cats b { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+.cats b span { color: var(--muted); font-weight: 600; }
+.cats p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.note { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+/* how it works (real sequence) */
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+.how div { background: var(--card); border-radius: 14px; padding: 16px; min-width: 0; }
+.how b { font-family: var(--serif); font-style: italic; font-size: 30px; font-weight: 400; display: block; line-height: 1; }
+.how h3 { font-size: 16px; letter-spacing: -0.02em; margin-top: 8px; }
+.how p { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+@media (max-width: 520px) { .how { grid-template-columns: 1fr; } .two { grid-template-columns: 1fr; } }
+
+/* faq */
+details { border-top: 1px solid var(--line); padding-block: 16px; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 800; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-family: var(--serif); font-size: 24px; line-height: .8; transition: transform .2s ease; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { margin: 10px 0 0; color: var(--muted); max-width: 60ch; }
+
+/* kitchen + final */
+.kitchen { text-align: center; padding-block: 64px 20px; display: grid; gap: 14px; justify-items: center; }
+.kitchen svg { width: 92px; height: auto; }
+.kitchen h2 { font-size: clamp(30px, 7vw, 40px); }
+.kitchen p { margin: 0; color: var(--muted); }
+.kitchen p a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+.buy { background: var(--card); border-radius: 26px; padding: 36px 22px 28px; text-align: center; display: grid; gap: 14px; justify-items: center; margin-block: 24px 40px; }
+.buy .mini { width: 128px; aspect-ratio: .71; background: var(--cream); border-radius: 5px; box-shadow: 0 16px 30px -14px rgba(40,30,20,.4); transform: rotate(-3deg); padding: 12px 10px; text-align: left; display: flex; flex-direction: column; }
+.buy .mini .t { font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: -0.05em; line-height: .9; }
+.buy .mini svg { width: 70%; margin: auto auto 0; }
+.buy h2 { font-size: 34px; margin-top: 8px; }
+.buy .meta { color: var(--muted); margin: 0; font-size: 15px; }
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: 12px; text-align: center; display: grid; gap: 12px; }
+footer p { margin: 0; max-width: 60ch; justify-self: center; }
+footer nav { display: flex; gap: 20px; justify-content: center; }
+footer nav a { text-decoration: none; font-weight: 600; }
+
+@keyframes rise { from { transform: translateY(10px) rotate(var(--r)); } to { transform: translateY(0) rotate(var(--r)); } }
+.cover { --r: -4deg; animation: rise .8s ease both; }
+.spread { --r: 3deg; animation: rise .8s .1s ease both; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="pint" viewBox="0 0 120 130">
+      <path d="M22 54 L32 122 Q33 127 38 127 H82 Q87 127 88 122 L98 54 Z" fill="#fff" stroke="#161513" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M26 78 H94" stroke="#161513" stroke-width="2" opacity=".25"/>
+      <path d="M20 56 Q18 30 40 26 Q44 8 62 12 Q80 4 88 24 Q104 28 100 56 Z" fill="#f2a9be" stroke="#161513" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M44 34 q4 -4 8 0 M70 28 q4 -4 8 0 M58 46 q4 -4 8 0" stroke="#161513" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <circle cx="36" cy="44" r="3" fill="#c2456b"/><circle cx="84" cy="40" r="3" fill="#c2456b"/><circle cx="62" cy="22" r="2.6" fill="#9bb36a"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">kremko<i></i></a>
+    <a class="pill sm" href="#kupi">Kupi · €6,99</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">50 receptov za Ninja CREAMi + 4-tedenski načrt</div>
+    <h1>od proteinske vanilije<br>do <em>mangovega sorbeta</em></h1>
+
+    <div class="mock" aria-hidden="true">
+      <div class="page cover">
+        <div class="t">zdrava<em>krema</em></div>
+        <div class="badge">50<br>rec.</div>
+        <svg viewBox="0 0 120 130"><use href="#pint"/></svg>
+        <div class="foot">recepti za Ninja CREAMi · kremko</div>
+      </div>
+      <div class="page spread">
+        <div class="rt">jagodni<em>cheesecake</em></div>
+        <div class="img"></div>
+        <div class="row"><span>165<small>kcal</small></span><span>21 g<small>beljak.</small></span><span>4 g<small>sladkor</small></span></div>
+        <div class="lines"><i></i><i style="width:80%"></i><i></i><i style="width:65%"></i><i></i><i style="width:72%"></i></div>
+      </div>
+    </div>
+
+    <p class="sub">Makrohranila in natančne količine pri vsakem receptu</p>
+    <a class="pill lg" id="kupi" href="#">Kupi e-knjigo · €6,99</a>
+    <p class="fine">Enkratno plačilo · kartica ali Apple Pay · PDF takoj</p>
+
+    <ul class="checks">
+      <li><span><b>Vsak pint pod 300 kcal</b>, večina pod 200</span></li>
+      <li><span><b>15–35 g beljakovin</b> v proteinskih receptih</span></li>
+      <li><span><b>5 minut priprave</b>, zamrzovalnik opravi ostalo</span></li>
+      <li><span><b>Brez dodanega sladkorja</b> v 38 receptih</span></li>
+    </ul>
+  </section>
+
+  <section class="block" id="noter">
+    <h2>poglej <em>noter</em></h2>
+    <p class="lead">Prave strani, točno takšne, kot so v PDF-ju. Podrsaj vstran.</p>
+
+    <div class="strip" id="strip">
+      <article class="slide">
+        <div class="sheet">
+          <div class="kicker"><span>Proteinski</span><span>●●○ srednje</span></div>
+          <div class="name">jagodni<em>cheesecake</em></div>
+          <div class="tags">Skuta · brez dodanega sladkorja</div>
+          <div class="stats">
+            <div><b>5 min</b><small>priprava</small></div>
+            <div><b>24 h</b><small>zamrzovanje</small></div>
+            <div><b>165</b><small>kcal / pint</small></div>
+            <div><b>21 g</b><small>beljakovine</small></div>
+            <div><b>14 g</b><small>OH</small></div>
+            <div><b>4 g</b><small>maščobe</small></div>
+          </div>
+          <div class="two">
+            <div>
+              <div class="mini-h">Sestavine</div>
+              <table class="ing"><tbody>
+                <tr><td>150 g</td><td>pusta skuta</td></tr>
+                <tr><td>200 ml</td><td>mandljevo mleko</td></tr>
+                <tr><td>80 g</td><td>jagode</td></tr>
+                <tr><td>1 žlica</td><td>eritritol</td></tr>
+                <tr><td>½ žličke</td><td>vanilija</td></tr>
+                <tr><td>1 kos</td><td>polnozrnat piškot</td></tr>
+              </tbody></table>
+            </div>
+            <div>
+              <div class="mini-h">Postopek</div>
+              <ol class="steps">
+                <li>Skuto, mleko, jagode, eritritol in vanilijo zmiksaj do gladkega.</li>
+                <li>Vlij v pint do črte MAX in zamrzni za 24 ur na ravni površini.</li>
+                <li>Spusti program <b>LITE ICE CREAM</b>. Če je drobljivo, dodaj 1 žlico mleka in izberi <b>RE-SPIN</b>.</li>
+                <li>Naredi luknjo, dodaj zdrobljen piškot in izberi <b>MIX-IN</b>.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="tip"><b>Nasvet:</b> pint pusti 10 minut na pultu pred obdelavo, pa boš skoraj vedno preskočil re-spin.</div>
+        </div>
+        <h3>stran z receptom</h3>
+        <p>Natančne količine, program CREAMi, makrohranila na pint in nasvet</p>
+      </article>
+
+      <article class="slide">
+        <div class="sheet">
+          <div class="kicker"><span>Načrt</span><span>teden 1 od 4</span></div>
+          <div class="name">teden<em>za začetek</em></div>
+          <div class="tags">Zamrzni v nedeljo · jej cel teden</div>
+          <div class="week">
+            <div><span>pon</span><span>proteinska vanilija</span><span>190 kcal</span></div>
+            <div><span>tor</span><span>mangov sorbet</span><span>140 kcal</span></div>
+            <div><span>sre</span><span>čokoladni frozen jogurt</span><span>210 kcal</span></div>
+            <div><span>čet</span><span>pistacija light</span><span>230 kcal</span></div>
+            <div><span>pet</span><span>banana + arašidi</span><span>260 kcal</span></div>
+            <div><span>sob</span><span>tiramisu skyr</span><span>220 kcal</span></div>
+            <div><span>ned</span><span>malinov milkshake</span><span>180 kcal</span></div>
+          </div>
+          <div class="tip"><b>Nakupovalni seznam</b> za cel teden je na naslednji strani, razvrščen po oddelkih trgovine.</div>
+        </div>
+        <h3>tedenski načrt</h3>
+        <p>7 pintov na teden, kalorije in seznam za trgovino</p>
+      </article>
+
+      <article class="slide">
+        <div class="sheet">
+          <div class="kicker"><span>Osnove</span><span>vodnik</span></div>
+          <div class="name">kateri<em>program kdaj</em></div>
+          <div class="tags">Da ne bo več prahu v pintu</div>
+          <div class="mods">
+            <div><span><b>Proteinski sladoled</b><small>skuta, skyr, proteinski prah</small></span><code>LITE ICE CREAM</code></div>
+            <div><span><b>Sadni sorbet</b><small>sadje z vodo ali sokom</small></span><code>SORBET</code></div>
+            <div><span><b>Gelato light</b><small>mleko, jajčni rumenjak, oreščki</small></span><code>GELATO</code></div>
+            <div><span><b>Frozen jogurt</b><small>grški jogurt ali kefir</small></span><code>ICE CREAM</code></div>
+            <div><span><b>Milkshake</b><small>že narejen pint + mleko</small></span><code>MILKSHAKE</code></div>
+            <div><span><b>Drobljivo?</b><small>1–2 žlici tekočine, ponovi</small></span><code>RE-SPIN</code></div>
+          </div>
+        </div>
+        <h3>vodnik po programih</h3>
+        <p>Kateri program izbrati in kako rešiti drobljivo teksturo</p>
+      </article>
+    </div>
+    <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+  </section>
+
+  <section class="block">
+    <h2>kaj je <em>notri</em></h2>
+    <p class="lead">50 receptov: 22 proteinskih, 18 sadnih, 10 za vikend</p>
+    <ul class="cats">
+      <li><div class="sw" style="background:#fbf1dc"><svg viewBox="0 0 120 130"><use href="#pint"/></svg></div><div><b>proteinski sladoledi <span>· 14</span></b><p>proteinska vanilija, piškoti s smetano, slana karamela</p></div></li>
+      <li><div class="sw" style="background:#fde3c8"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="#f5a524" stroke="#161513" stroke-width="1.5"/><path d="M12 5c0-2 2-3 3-3" stroke="#161513" stroke-width="1.5" fill="none"/></svg></div><div><b>sadni sorbeti <span>· 10</span></b><p>mangov sorbet, ananas + meta, limona in bazilika</p></div></li>
+      <li><div class="sw" style="background:#e6edd5"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="13" rx="6" ry="8" fill="#9bb36a" stroke="#161513" stroke-width="1.5"/><path d="M12 6v14" stroke="#161513" stroke-width="1.2"/></svg></div><div><b>gelato light <span>· 8</span></b><p>pistacija, lešnik in kakav, stracciatella</p></div></li>
+      <li><div class="sw" style="background:#f6dbe3"><svg viewBox="0 0 24 24"><path d="M5 9h14l-2 11H7z" fill="#fff" stroke="#161513" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" fill="#f2a9be" stroke="#161513" stroke-width="1.5"/></svg></div><div><b>frozen jogurt <span>· 8</span></b><p>borovnice + skyr, grški jogurt z medom, kefir in malina</p></div></li>
+      <li><div class="sw" style="background:#e9e2d7"><svg viewBox="0 0 24 24"><path d="M7 6h10l-1.5 15h-7z" fill="#c8a07a" stroke="#161513" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2l-1 6" stroke="#161513" stroke-width="1.5"/></svg></div><div><b>milkshaki <span>· 5</span></b><p>čokolada + banana, ledena kava, malinov shake</p></div></li>
+      <li><div class="sw" style="background:#efeae0"><svg viewBox="0 0 24 24"><circle cx="8" cy="10" r="2.5" fill="#6b4a2f"/><circle cx="15" cy="8" r="2" fill="#c2456b"/><circle cx="14" cy="15" r="2.5" fill="#f5a524"/><circle cx="8" cy="17" r="1.8" fill="#9bb36a"/></svg></div><div><b>dodatki in prelivi <span>· 5</span></b><p>"magic shell" iz temne čokolade, hrustljava granola, jagodni preliv</p></div></li>
+    </ul>
+    <p class="note">Recepti so preizkušeni na modelih NC300 in NC500 (Deluxe). Fotografije jedi so ustvarjene z umetno inteligenco.</p>
+  </section>
+
+  <section class="block">
+    <h2>tako <em>poteka</em></h2>
+    <div class="how">
+      <div><b>1</b><h3>Zmiksaj</h3><p>5 minut, običajne sestavine iz trgovine.</p></div>
+      <div><b>2</b><h3>Zamrzni</h3><p>24 ur v pintu na ravni polici.</p></div>
+      <div><b>3</b><h3>Spusti program</h3><p>Natančno ime programa piše v receptu.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>pogosta <em>vprašanja</em></h2>
+    <div style="margin-top:20px">
+      <details><summary>Ali potrebujem Ninja CREAMi?</summary><p>Da. Vsi recepti so napisani za pinte in programe Ninja CREAMi. Delujejo na modelih NC300 in NC500.</p></details>
+      <details><summary>V katerem jeziku je e-knjiga?</summary><p>V slovenščini. Količine so v gramih in mililitrih, sestavine pa dobiš v običajni trgovini.</p></details>
+      <details><summary>Kako dobim PDF?</summary><p>Prenos se odpre takoj po plačilu, račun ni potreben. Povezavo dobiš tudi po e-pošti.</p></details>
+      <details><summary>Ali so recepti primerni za hujšanje?</summary><p>Vsak recept ima kalorije in makrohranila na pint, zato ga zlahka vključiš v svoj dnevni plan. Vrednosti so ocene.</p></details>
+      <details><summary>Kaj če sladila ne uporabljam?</summary><p>Pri vsakem receptu je navedena zamenjava z medom ali datlji in koliko kalorij to doda.</p></details>
+    </div>
+  </section>
+
+  <section class="kitchen">
+    <svg viewBox="0 0 120 130" aria-hidden="true"><use href="#pint"/><circle cx="50" cy="98" r="3.5" fill="#161513"/><circle cx="70" cy="98" r="3.5" fill="#161513"/><path d="M54 108 q6 6 12 0" stroke="#161513" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="42" cy="106" r="4" fill="#f2a9be" opacity=".7"/><circle cx="78" cy="106" r="4" fill="#f2a9be" opacity=".7"/></svg>
+    <h2>iz <em>kremko kuhinje</em></h2>
+    <p>Vprašanje pred nakupom? <a href="#kontakt">Piši nam →</a></p>
+  </section>
+
+  <section class="buy">
+    <div class="mini" aria-hidden="true"><div class="t">zdrava<em style="display:block">krema</em></div><svg viewBox="0 0 120 130"><use href="#pint"/></svg></div>
+    <h2>zdrava <em>krema</em></h2>
+    <p class="meta">50 receptov · 4-tedenski načrt · 74-stranski PDF v slovenščini</p>
+    <a class="pill lg" href="#">Kupi e-knjigo · €6,99</a>
+    <p class="fine">Prenos takoj po plačilu, brez računa.<br>Povezavo dobiš tudi po e-pošti.</p>
+    <p class="fine">Enkratno plačilo · manj kot 14 centov na recept</p>
+  </section>
+</main>
+
+<footer class="wrap" id="kontakt">
+  <p>Fotografije receptov so ustvarjene z umetno inteligenco in prikazujejo končne jedi. Makrohranila so ocene na pint. PDF se odpre na telefonu, tablici ali računalniku. Cene vključujejo DDV. Ninja in CREAMi sta blagovni znamki SharkNinja; e-knjiga z njimi ni povezana.</p>
+  <p>© 2026 kremko · info@kremko.si</p>
+  <nav><a href="#">Zasebnost</a><a href="#">Pogoji</a><a href="#kontakt">Kontakt</a></nav>
+</footer>
+
+<script>
+(function () {
+  var strip = document.getElementById('strip');
+  var dots = document.querySelectorAll('#dots i');
+  strip.addEventListener('scroll', function () {
+    var slides = strip.querySelectorAll('.slide');
+    var w = slides[0].getBoundingClientRect().width + 14;
+    var i = Math.min(dots.length - 1, Math.round(strip.scrollLeft / w));
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
