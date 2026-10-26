@@ -168,10 +168,56 @@ details p { margin: 10px 0 0; color: var(--muted); max-width: 60ch; }
 .buy .mini svg { width: 70%; margin: auto auto 0; }
 .buy h2 { font-size: 34px; margin-top: 8px; }
 .buy .meta { color: var(--muted); margin: 0; font-size: 15px; }
-footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: 12px; text-align: center; display: grid; gap: 12px; }
+footer { border-top: 1px solid var(--line); padding-block: 28px 96px; color: var(--muted); font-size: 12px; text-align: center; display: grid; gap: 12px; }
 footer p { margin: 0; max-width: 60ch; justify-self: center; }
 footer nav { display: flex; gap: 20px; justify-content: center; }
 footer nav a { text-decoration: none; font-weight: 600; }
+
+.lede { max-width: 46ch; font-size: 17px; color: var(--ink); opacity: .78; }
+
+/* calorie comparison */
+.compare { display: grid; gap: 10px; padding-block: 28px 0; text-align: center; }
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vs div { background: var(--card); border-radius: 16px; padding: 18px 12px; display: grid; gap: 2px; font-variant-numeric: tabular-nums; }
+.vs small { font-size: 12px; font-weight: 700; color: var(--muted); }
+.vs b { font-family: var(--serif); font-weight: 400; font-size: 46px; line-height: 1.05; text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--berry); }
+.vs span { font-size: 13px; color: var(--muted); }
+.vs .win { background: var(--ink); color: var(--bg); }
+.vs .win b { text-decoration: none; }
+.vs .win small, .vs .win span { color: var(--bg); opacity: .75; }
+
+/* placeholders: replace with real assets */
+.ph { border: 2px dashed var(--line); background: repeating-linear-gradient(45deg, transparent 0 10px, rgba(0,0,0,.025) 10px 20px); color: var(--muted); }
+
+/* about */
+.about { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center; }
+.about > div { min-width: 0; }
+.about .portrait { width: 150px; aspect-ratio: 4/5; border-radius: 18px; display: grid; place-items: center; font-size: 13px; font-weight: 700; text-align: center; padding: 10px; }
+.about p { margin: 12px 0 0; max-width: 60ch; }
+.about .handle { font-size: 14px; color: var(--muted); }
+@media (max-width: 520px) { .about { grid-template-columns: 1fr; } .about .portrait { width: 120px; } }
+
+/* reviews */
+.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.review { margin: 0; border-radius: 14px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.review blockquote { margin: 0; font-size: 14px; }
+.review figcaption { font-size: 12px; font-weight: 700; }
+@media (max-width: 600px) { .reviews { grid-template-columns: 1fr; } }
+
+/* guarantee + free sample */
+.guarantee { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 2px; font-size: 14px; max-width: 40ch; }
+.guarantee span { color: var(--muted); }
+.sample { text-align: center; display: grid; gap: 12px; justify-items: center; padding-block: 0 48px; }
+.sample h2 { font-size: clamp(26px, 6vw, 32px); }
+.sample p { margin: 0; color: var(--muted); }
+.pill.outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding: 12px 22px; font-size: 15px; }
+.pill.outline:hover { background: var(--ink); color: var(--bg); }
+
+/* sticky buy bar */
+.sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px -18px rgba(40,30,20,.35); padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.sticky div { display: grid; font-size: 13px; line-height: 1.3; }
+.sticky b { font-weight: 800; font-size: 15px; }
+.sticky span { color: var(--muted); }
 
 @keyframes rise { from { transform: translateY(10px) rotate(var(--r)); } to { transform: translateY(0) rotate(var(--r)); } }
 .cover { --r: -4deg; animation: rise .8s ease both; }
@@ -201,8 +247,9 @@ footer nav a { text-decoration: none; font-weight: 600; }
 
 <main class="wrap">
   <section class="hero">
-    <div class="eyebrow">50 Ninja CREAMi recipes + a 4-week plan</div>
-    <h1>from protein vanilla<br>to <em>mango sorbet</em></h1>
+    <div class="eyebrow">50 high-protein Ninja CREAMi recipes, all under 300 kcal</div>
+    <h1>eat ice cream every day<br><em>and still lose weight</em></h1>
+    <p class="sub lede">Creamy, never powdery pints with up to 35 g protein and no added sugar, so dessert fits your calorie deficit.</p>
 
     <div class="mock" aria-hidden="true">
       <div class="page cover">
@@ -221,14 +268,32 @@ footer nav a { text-decoration: none; font-weight: 600; }
 
     <p class="sub">Macros and exact amounts on every recipe</p>
     <a class="pill lg" id="buy" href="#">Get the ebook · €6.99</a>
-    <p class="fine">One-time payment · card or Apple Pay · instant PDF</p>
+    <p class="fine">One-time payment · card or Apple Pay · instant PDF · 14-day money-back guarantee</p>
 
     <ul class="checks">
-      <li><span><b>Every pint under 300 kcal</b>, most under 200</span></li>
-      <li><span><b>15–35 g protein</b> in the protein recipes</span></li>
+      <li><span><b>A whole pint under 300 kcal</b>, most under 200</span></li>
+      <li><span><b>15–35 g protein</b> to keep you full between meals</span></li>
+      <li><span><b>No added sugar</b> in 38 recipes, real fruit in the rest</span></li>
       <li><span><b>5 minutes of prep</b>, the freezer does the rest</span></li>
-      <li><span><b>No added sugar</b> in 38 recipes</span></li>
     </ul>
+  </section>
+
+  <section class="compare" aria-label="Calorie comparison">
+    <div class="vs">
+      <div><small>Regular ice cream, 1 pint</small><b>~1,000</b><span>kcal · ~90 g sugar</span></div>
+      <div class="win"><small>Healthy Scoops pint</small><b>165</b><span>kcal · 4 g sugar · 21 g protein</span></div>
+    </div>
+    <p class="fine">Strawberry cheesecake from the book vs. a typical premium supermarket pint.</p>
+  </section>
+
+  <section class="block about">
+    <div class="ph portrait" aria-label="Photo of Sophia">Sophia's photo</div>
+    <div>
+      <h2>hi, I'm <em>sophia</em></h2>
+      <p>I love dessert and I didn't want to give it up to eat healthier. So I started making ice cream in my Ninja CREAMi with cottage cheese, skyr and fruit, and tracking every gram.</p>
+      <p>This book is every recipe that made the cut: high in protein, low in sugar, and creamy enough that you won't miss the real thing.</p>
+      <p class="handle"><b>[follower count]</b> followers on TikTok &amp; Instagram · <b>[@handle]</b></p>
+    </div>
   </section>
 
   <section class="block" id="inside">
@@ -333,6 +398,16 @@ footer nav a { text-decoration: none; font-weight: 600; }
   </section>
 
   <section class="block">
+    <h2>what people <em>say</em></h2>
+    <p class="lead">Reviews and messages from readers.</p>
+    <div class="reviews">
+      <figure class="ph review"><blockquote>Paste a real customer review or a DM screenshot here.</blockquote><figcaption>Name · city</figcaption></figure>
+      <figure class="ph review"><blockquote>Paste a real customer review or a DM screenshot here.</blockquote><figcaption>Name · city</figcaption></figure>
+      <figure class="ph review"><blockquote>Paste a real customer review or a DM screenshot here.</blockquote><figcaption>Name · city</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block">
     <h2>how it <em>works</em></h2>
     <div class="how">
       <div><b>1</b><h3>Blend</h3><p>5 minutes, everyday supermarket ingredients.</p></div>
@@ -347,7 +422,8 @@ footer nav a { text-decoration: none; font-weight: 600; }
       <details><summary>Do I need a Ninja CREAMi?</summary><p>Yes. Every recipe is written for Ninja CREAMi pints and programs. They work on the NC300 and NC500 models.</p></details>
       <details><summary>What units do the recipes use?</summary><p>Grams and millilitres, with cups and tablespoons where it helps. All ingredients are easy to find in a regular supermarket.</p></details>
       <details><summary>How do I get the PDF?</summary><p>The download opens right after you pay, no account needed. The link comes by email too.</p></details>
-      <details><summary>Are the recipes good for weight loss?</summary><p>Every recipe lists calories and macros per pint, so it's easy to fit into your daily plan. Values are estimates.</p></details>
+      <details><summary>Will this help me lose weight?</summary><p>Weight loss comes from eating fewer calories than you burn. These recipes swap a ~1,000 kcal dessert for a 150–250 kcal one with lots of protein, which makes a deficit much easier to stick to. Every recipe lists calories and macros per pint.</p></details>
+      <details><summary>What if I don't like it?</summary><p>Email me within 14 days and you get a full refund. No questions asked.</p></details>
       <details><summary>What if I don't use sweeteners?</summary><p>Each recipe lists a swap with honey or dates and how many calories it adds.</p></details>
     </div>
   </section>
@@ -365,11 +441,23 @@ footer nav a { text-decoration: none; font-weight: 600; }
     <a class="pill lg" href="#">Get the ebook · €6.99</a>
     <p class="fine">Download right after paying, no account needed.<br>The link comes by email too.</p>
     <p class="fine">One-time payment · under 14 cents a recipe</p>
+    <div class="guarantee"><b>14-day money-back guarantee</b><span>Try three recipes. If you don't love them, email me for a full refund.</span></div>
+  </section>
+
+  <section class="sample">
+    <h2>not sure yet? <em>try 3 recipes free</em></h2>
+    <p>Get protein vanilla, mango sorbet and strawberry cheesecake by email.</p>
+    <a class="pill outline" href="#">Send me the free recipes</a>
   </section>
 </main>
 
+<div class="sticky" id="sticky" hidden>
+  <div><b>Healthy Scoops</b><span>50 recipes · instant PDF</span></div>
+  <a class="pill sm" href="#">Get it · €6.99</a>
+</div>
+
 <footer class="wrap" id="contact">
-  <p>Recipe photos are AI-generated to show the finished dishes. Macros are estimates per pint. The PDF opens on phone, tablet or computer. Prices include VAT. Ninja and CREAMi are trademarks of SharkNinja; this ebook is not affiliated with them.</p>
+  <p>Recipe photos are AI-generated to show the finished dishes. Macros are estimates per pint. This ebook is not medical advice; results depend on your overall diet and activity. The PDF opens on phone, tablet or computer. Prices include VAT. Ninja and CREAMi are trademarks of SharkNinja; this ebook is not affiliated with them.</p>
   <p>© 2026 sophia's recipes · hello@sophiasrecipes.com</p>
   <nav><a href="#">Privacy</a><a href="#">Terms</a><a href="#contact">Contact</a></nav>
 </footer>
@@ -384,6 +472,18 @@ footer nav a { text-decoration: none; font-weight: 600; }
     var i = Math.min(dots.length - 1, Math.round(strip.scrollLeft / w));
     dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
   }, { passive: true });
+
+  var sticky = document.getElementById('sticky');
+  var targets = [document.getElementById('buy'), document.querySelector('.buy .pill')];
+  var visible = new Set();
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
+      var pastHero = targets[0].getBoundingClientRect().bottom < 0;
+      sticky.hidden = !(pastHero && visible.size === 0);
+    });
+    targets.forEach(function (t) { io.observe(t); });
+  }
 })();
 </script>
 </body>
